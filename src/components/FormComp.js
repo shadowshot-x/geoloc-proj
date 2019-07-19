@@ -1,58 +1,77 @@
 import React, { Component } from 'react';
-import Switch from '@material-ui/core/Switch';
+import {Switch,Button} from '@material-ui/core';
+import geodist from 'geodist'
+
+
+const locationArray=[
+  [ 21.14, 79.09 ],
+  [ 21.17,79.14 ],
+  [ 21.6, 79.00 ],
+  [ 21.14, 79.09 ]
+]
 
 class FormComp extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            checked1:false,
-            checked2:false,
-            checked3:false,
-            checked4:false,
-            checked5:false,
-            checked6:false,
-            checked7:false
+            checked:[false,false,false,false]
          }
+         this.handleSwitchChange=this.handleSwitchChange.bind(this)
+         this.handleCalc=this.handleCalc.bind(this)
+    }
+    handleCalc(e){
+      e.preventDefault()
+      let distanceArray=[];
+      for(let i=0;i<locationArray.length;i++){
+        if(i+1!==locationArray.length)
+        distanceArray[i]=geodist({lat:locationArray[i][0],lon:locationArray[i][1]},{lat:locationArray[i+1][0],lon:locationArray[i+1][1]})
+        else{
+          distanceArray[i]=geodist({lat:locationArray[0][0],lon:locationArray[0][1]},{lat:locationArray[i][0],lon:locationArray[i][1]})
+        }
+      }
+      console.log(distanceArray);
+
+    }
+    handleSwitchChange(i){
+      let checked=this.state.checked;
+      checked[i]=!checked[i]
+      this.setState({
+        checked:checked
+      })
+      console.log('switch checked with', checked);
     }
     render() { 
         return ( 
             <div>
             <form>
             <Switch
-        checked={this.state.checked1}
-        onChange={()=>{this.setState({checked1:!this.state.checked1})}}
-        value="checked1"
+        checked={this.state.checked[0]}
+        onChange={()=>{
+          this.handleSwitchChange(0)
+        }}
+       
       />
       <Switch
-        checked={this.state.checked2}
-        onChange={()=>{this.setState({checked2:!this.state.checked2})}}
-        value="checked2"
+        checked={this.state.checked[1]}
+        onChange={()=>{
+          this.handleSwitchChange(1)
+        }}
+       
       />
       <Switch
-        checked={this.state.checked3}
-        onChange={()=>{this.setState({checked3:!this.state.checked3})}}
-        value="checked3"
+        checked={this.state.checked[2]}
+        onChange={()=>{
+          this.handleSwitchChange(2)
+        }}
+       
       />
       <Switch
-        checked={this.state.checked4}
-        onChange={()=>{this.setState({checked4:!this.state.checked4})}}
-        value="checked4"
+        checked={this.state.checked[3]}
+        onChange={()=>{
+          this.handleSwitchChange(3)
+        }}
       />
-      {/* <Switch
-        checked={this.state.checked5}
-        onChange={()=>{this.setState({checked5:!this.state.checked5})}}
-        value="checked5"
-      />
-      <Switch
-        checked={this.state.checked6}
-        onChange={()=>{this.setState({checked6:!this.state.checked6})}}
-        value="checked6"
-      />
-      <Switch
-        checked={this.state.checked7}
-        onChange={()=>{this.setState({checked7:!this.state.checked7})}}
-        value="checked7"
-      /> */}
+      <Button onClick={this.handleCalc}>Calculate</Button>
             </form>
             </div>
          );
