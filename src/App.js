@@ -3,6 +3,7 @@ import './App.css';
 import MainMap from './components/MainMap'
 import {Grid} from '@material-ui/core'
 import FormComp from './components/FormComp'
+import Something from './components/Something';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <FormComp />
       </Grid>
       </Grid>
+      <Something />
     </div>
   );
 }

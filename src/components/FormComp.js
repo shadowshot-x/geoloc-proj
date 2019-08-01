@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {Switch,Button} from '@material-ui/core';
-import geodist from 'geodist'
+import geodist from 'geodist';
+import Graph from '../dataStructs/Graph';
 
 
 const locationArray=[
+  [21.33,79.5],
   [ 21.14, 79.09 ],
   [ 21.17,79.14 ],
   [ 21.6, 79.00 ],
-  [ 21.14, 79.09 ]
-]
+];
 
 class FormComp extends Component {
     constructor(props) {
@@ -21,15 +22,25 @@ class FormComp extends Component {
     }
     handleCalc(e){
       e.preventDefault()
-      let distanceArray=[];
-      for(let i=0;i<locationArray.length;i++){
-        if(i+1!==locationArray.length)
-        distanceArray[i]=geodist({lat:locationArray[i][0],lon:locationArray[i][1]},{lat:locationArray[i+1][0],lon:locationArray[i+1][1]})
-        else{
-          distanceArray[i]=geodist({lat:locationArray[0][0],lon:locationArray[0][1]},{lat:locationArray[i][0],lon:locationArray[i][1]})
+      let g=new Graph();
+      let locArray=[],n=0;
+      for(let i=0;i<this.state.checked.length;i++){
+        if(this.state.checked[i]==true){
+          locArray.push(locationArray[i]);
+          g.addNode(i);
         }
       }
-      console.log(distanceArray);
+      console.log(locArray);
+      n=locArray.length;
+      for(let i=0;i<n-1;i++){
+        for(let j=i+1;j<n;j++){
+          if(i!=j){
+            console.log(geodist({lat:locArray[i][0], lon: locArray[i][1]}, {lat: locArray[j][0], lon: locArray[j][1]}),j);
+            g.addEdge(i,j,geodist({lat:locArray[i][0], lon: locArray[i][1]}, {lat: locArray[j][0], lon: locArray[j][1]}))
+          }
+        }
+      }
+      g.primsMST().display();
 
     }
     handleSwitchChange(i){
