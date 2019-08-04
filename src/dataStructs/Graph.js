@@ -45,7 +45,18 @@ import Queue from './Queue'
          graph += node + "->" + this.edges[node].map(n => n.node).join(", ") + "\n";
       });
       console.log(graph);
+      console.log(this.edges);
+
+   
    }
+
+   // preOrderHelper(root) {
+   //    if (root !== null) {
+   //       console.log(root.data);
+   //       this.preOrderHelper(root.left);
+   //       this.preOrderHelper(root.right);
+   //    }
+   // }
 
    BFS(node) {
       let q = new Queue(this.nodes.length);
