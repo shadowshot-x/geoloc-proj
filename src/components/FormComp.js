@@ -7,15 +7,20 @@ import prims from '../dataStructs/Prims';
 const locationArray=[
   [26.2502883,78.1735235],
   [ 26.2500766, 78.1695613 ],
+  [26.2496472,78.1700595],
   [ 26.246628,78.1731735 ],
   [26.2469349,78.1762078 ],
+  [26.2489785,78.1770547],
+  [26.2499822,78.1764223]
 ];
+//BH3,MDP,BANK
+//[[26.2496472,78.1700595],[26.2489785,78.1770547],[26.2499822,78.1764223]]
 
 class FormComp extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            checked:[false,false,false,false],
+            checked:[false,false,false,false,false,false,false],
             calculated:false,
             locationArray:null
          }
@@ -97,7 +102,7 @@ class FormComp extends Component {
       />
       </div>
       <div style={{marginTop:`2vh`}}>
-      Sports Complex ABV-IIITM &nbsp;
+      Boys Hostel -3 ABV-IIITM &nbsp;&nbsp;
       <Switch
         checked={this.state.checked[2]}
         onChange={()=>{
@@ -107,11 +112,38 @@ class FormComp extends Component {
       />
       </div>
       <div style={{marginTop:`2vh`}}>
-      Girls Hostel ABV-IIITM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      Sports Complex ABV-IIITM &nbsp;&nbsp;
       <Switch
         checked={this.state.checked[3]}
         onChange={()=>{
           this.handleSwitchChange(3)
+        }}
+      />
+      </div>
+      <div style={{marginTop:`2vh`}}>
+      Girls Hostel ABV-IIITM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <Switch
+        checked={this.state.checked[4]}
+        onChange={()=>{
+          this.handleSwitchChange(4)
+        }}
+      />
+      </div>
+      <div style={{marginTop:`2vh`}}>
+      MDP ABV-IIITM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <Switch
+        checked={this.state.checked[5]}
+        onChange={()=>{
+          this.handleSwitchChange(5)
+        }}
+      />
+      </div>
+      <div style={{marginTop:`2vh`}}>
+      IMDB Bank ABV-IIITM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <Switch
+        checked={this.state.checked[6]}
+        onChange={()=>{
+          this.handleSwitchChange(6)
         }}
       />
       </div>
@@ -132,8 +164,18 @@ class FormComp extends Component {
             else if(ele[0]== 26.246628){
               return "Sports Complex -> "
             }
+            else if(ele[0]== 26.2500766){
+              return "BH 3 -> "
+            }
+            else if(ele[0]== 26.2489785){
+              return "MDP -> "
+            }
+            else if(ele[0]== 26.2499822){
+              return "Imdb Bank "
+            }
+            
             else{
-              return "GH "
+              return "GH ->"
             }
           })}
           </div>
